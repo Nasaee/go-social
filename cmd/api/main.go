@@ -1,0 +1,24 @@
+package main
+
+import (
+	"log"
+
+	"github.com/Nasaee/go-social/internal/env"
+)
+
+func main() {
+	env.Init()
+
+	cfg := config{
+		addr: env.GetString("ADDR", ":8080"),
+	}
+
+	app := &application{
+		config: cfg,
+	}
+
+	mux := app.mount()
+
+	// log.Fatal() is a shortcut for os.Exit(1) จอ error ที่ต้องหยุดระบบ
+	log.Fatal(app.run(mux))
+}
