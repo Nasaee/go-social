@@ -2,3 +2,19 @@ https://www.youtube.com/watch?v=h3fqD6IprIA&t=1092s
 https://github.com/sikozonpc/GopherSocial/tree/dev
 
 2:32:14
+
+go get github.com/golang-migrate/migrate/v4
+
+after install this run to create migrate files:
+1. migrate create -seq -ext sql -dir .cmd/migrate/migrations create_users
+
+or run makefile command: make migration your_table_name
+
+- -seq is create files in sequence 001, 002, 003 etc.
+- -ext sql is create files with .sql extension
+
+2. to create table: migrate -path=./cmd/migrate/migrations -database="postgres://admin:adminpassword@localhost:5433/socialnetwork?sslmode=disable" up
+
+if you want to drop table run:  migrate -path=./cmd/migrate/migrations -database="postgres://admin:adminpassword@localhost:5433/socialnetwork?sslmode=disable" down
+
+or run makefile commands: make migrate-up or make migrate-down
